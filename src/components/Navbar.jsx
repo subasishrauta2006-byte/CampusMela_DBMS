@@ -132,29 +132,46 @@ export default function Navbar({ activePage, onNavigate, onOpenNewEvent, onOpenR
             {isDarkMode ? '☀️' : '🌙'}
           </button>
 
-          {/* User Profile or Login Buttons */}
+          {/* User Profile or Login / Register Buttons */}
           {currentUser ? (
-            <div className="user-profile-badge">
-              <span className="user-avatar">{currentUser.name.charAt(0).toUpperCase()}</span>
-              <div className="user-info-text">
-                <span className="user-name">{currentUser.name.split(' ')[0]}</span>
-                <span className="user-role">{currentUser.role.split(' ')[0]}</span>
-              </div>
+            <div className="navbar-logged-group">
               <button
-                className="user-logout-icon"
-                onClick={logoutUser}
-                title="Sign Out"
+                className="btn-register-pill"
+                onClick={() => onNavigate('registration')}
+                title="Register student for event"
               >
-                ✕
+                + Register
               </button>
+              <div className="user-profile-badge">
+                <span className="user-avatar">{currentUser.name.charAt(0).toUpperCase()}</span>
+                <div className="user-info-text">
+                  <span className="user-name">{currentUser.name.split(' ')[0]}</span>
+                  <span className="user-role">{currentUser.role.split(' ')[0]}</span>
+                </div>
+                <button
+                  className="user-logout-icon"
+                  onClick={logoutUser}
+                  title="Sign Out"
+                >
+                  ✕
+                </button>
+              </div>
             </div>
           ) : (
-            <button
-              className="btn-dark-pill"
-              onClick={() => onNavigate('login')}
-            >
-              Login
-            </button>
+            <div className="navbar-auth-group">
+              <button
+                className="btn-login-pill"
+                onClick={() => onNavigate('login', { mode: 'login' })}
+              >
+                Login
+              </button>
+              <button
+                className="btn-register-pill"
+                onClick={() => (onOpenRegister ? onOpenRegister() : onNavigate('login', { mode: 'register' }))}
+              >
+                Register
+              </button>
+            </div>
           )}
         </div>
       </div>
